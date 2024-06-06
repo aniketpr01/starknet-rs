@@ -547,11 +547,11 @@ impl RawExecutionV1 {
         &self.calls
     }
 
-    pub fn nonce(&self) -> Felt {
+    pub const fn nonce(&self) -> Felt {
         self.nonce
     }
 
-    pub fn max_fee(&self) -> Felt {
+    pub const fn max_fee(&self) -> Felt {
         self.max_fee
     }
 }

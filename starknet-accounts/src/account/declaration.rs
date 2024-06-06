@@ -565,7 +565,7 @@ impl<'a, A> LegacyDeclaration<'a, A> {
     }
 
     /// Calling this function after manually specifying `nonce` and `max_fee` turns
-    /// [LegacyDeclaration] into [PreparedLegacyDeclaration]. Returns `Err` if either field is
+    /// [`LegacyDeclaration`] into [`PreparedLegacyDeclaration`]. Returns `Err` if either field is
     /// `None`.
     pub fn prepared(self) -> Result<PreparedLegacyDeclaration<'a, A>, NotPreparedError> {
         let nonce = self.nonce.ok_or(NotPreparedError)?;
@@ -754,15 +754,15 @@ impl RawDeclarationV2 {
         &self.contract_class
     }
 
-    pub fn compiled_class_hash(&self) -> Felt {
+    pub const fn compiled_class_hash(&self) -> Felt {
         self.compiled_class_hash
     }
 
-    pub fn nonce(&self) -> Felt {
+    pub const fn nonce(&self) -> Felt {
         self.nonce
     }
 
-    pub fn max_fee(&self) -> Felt {
+    pub const fn max_fee(&self) -> Felt {
         self.max_fee
     }
 }
@@ -869,11 +869,11 @@ impl RawLegacyDeclaration {
         &self.contract_class
     }
 
-    pub fn nonce(&self) -> Felt {
+    pub const fn nonce(&self) -> Felt {
         self.nonce
     }
 
-    pub fn max_fee(&self) -> Felt {
+    pub const fn max_fee(&self) -> Felt {
         self.max_fee
     }
 }

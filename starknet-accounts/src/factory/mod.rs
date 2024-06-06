@@ -18,7 +18,7 @@ use std::error::Error;
 pub mod argent;
 pub mod open_zeppelin;
 
-/// Cairo string for "deploy_account"
+/// Cairo string for `deploy_account`
 const PREFIX_DEPLOY_ACCOUNT: Felt = Felt::from_raw([
     461298303000467581,
     18446744073709551615,
@@ -42,7 +42,7 @@ const QUERY_VERSION_THREE: Felt = Felt::from_raw([
     18446744073700081569,
 ]);
 
-/// Cairo string for "STARKNET_CONTRACT_ADDRESS"
+/// Cairo string for `STARKNET_CONTRACT_ADDRESS`
 const PREFIX_CONTRACT_ADDRESS: Felt = Felt::from_raw([
     533439743893157637,
     8635008616843941496,
@@ -193,21 +193,21 @@ impl<'f, F> AccountDeploymentV1<'f, F> {
         }
     }
 
-    pub fn nonce(self, nonce: Felt) -> Self {
+    pub const fn nonce(self, nonce: Felt) -> Self {
         Self {
             nonce: Some(nonce),
             ..self
         }
     }
 
-    pub fn max_fee(self, max_fee: Felt) -> Self {
+    pub const fn max_fee(self, max_fee: Felt) -> Self {
         Self {
             max_fee: Some(max_fee),
             ..self
         }
     }
 
-    pub fn fee_estimate_multiplier(self, fee_estimate_multiplier: f64) -> Self {
+    pub const fn fee_estimate_multiplier(self, fee_estimate_multiplier: f64) -> Self {
         Self {
             fee_estimate_multiplier,
             ..self
@@ -720,11 +720,11 @@ impl RawAccountDeploymentV1 {
         self.salt
     }
 
-    pub fn nonce(&self) -> Felt {
+    pub const fn nonce(&self) -> Felt {
         self.nonce
     }
 
-    pub fn max_fee(&self) -> Felt {
+    pub const fn max_fee(&self) -> Felt {
         self.max_fee
     }
 }

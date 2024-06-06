@@ -276,7 +276,7 @@ pub struct PreparedDeclarationV3<'a, A> {
     inner: RawDeclarationV3,
 }
 
-/// [RawLegacyDeclaration] but with an account associated.
+/// [`RawLegacyDeclaration`] but with an account associated.
 #[derive(Debug)]
 pub struct PreparedLegacyDeclaration<'a, A> {
     account: &'a A,

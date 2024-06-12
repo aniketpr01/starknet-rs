@@ -83,7 +83,7 @@ impl EthAddress {
         felt.try_into()
     }
 
-    pub fn as_bytes(&self) -> &[u8; 20] {
+    pub const fn as_bytes(&self) -> &[u8; 20] {
         &self.inner
     }
 }
@@ -109,7 +109,7 @@ impl<'de> Deserialize<'de> for EthAddress {
 impl<'de> Visitor<'de> for EthAddressVisitor {
     type Value = EthAddress;
 
-    fn expecting(&self, formatter: &mut Formatter) -> alloc::fmt::Result {
+    fn expecting(&self, formatter: &mut Formatter<'_>) -> alloc::fmt::Result {
         write!(formatter, "string")
     }
 

@@ -46,7 +46,6 @@ mod test {
             ("SN_GOERLI2", TESTNET2),
             ("SN_SEPOLIA", SEPOLIA),
         ]
-        .into_iter()
         {
             assert_eq!(cairo_short_string_to_felt(text).unwrap(), felt);
         }

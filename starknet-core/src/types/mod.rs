@@ -371,10 +371,10 @@ impl MaybePendingBlockWithTxHashes {
         }
     }
 
-    pub fn l1_gas_price(&self) -> &ResourcePrice {
+    pub const fn l1_gas_price(&self) -> &ResourcePrice {
         match self {
-            MaybePendingBlockWithTxHashes::Block(block) => &block.l1_gas_price,
-            MaybePendingBlockWithTxHashes::PendingBlock(block) => &block.l1_gas_price,
+            Self::Block(block) => &block.l1_gas_price,
+            Self::PendingBlock(block) => &block.l1_gas_price,
         }
     }
 }
@@ -387,10 +387,10 @@ impl MaybePendingBlockWithTxs {
         }
     }
 
-    pub fn l1_gas_price(&self) -> &ResourcePrice {
+    pub const fn l1_gas_price(&self) -> &ResourcePrice {
         match self {
-            MaybePendingBlockWithTxs::Block(block) => &block.l1_gas_price,
-            MaybePendingBlockWithTxs::PendingBlock(block) => &block.l1_gas_price,
+            Self::Block(block) => &block.l1_gas_price,
+            Self::PendingBlock(block) => &block.l1_gas_price,
         }
     }
 }
@@ -403,10 +403,10 @@ impl MaybePendingBlockWithReceipts {
         }
     }
 
-    pub fn l1_gas_price(&self) -> &ResourcePrice {
+    pub const fn l1_gas_price(&self) -> &ResourcePrice {
         match self {
-            MaybePendingBlockWithReceipts::Block(block) => &block.l1_gas_price,
-            MaybePendingBlockWithReceipts::PendingBlock(block) => &block.l1_gas_price,
+            Self::Block(block) => &block.l1_gas_price,
+            Self::PendingBlock(block) => &block.l1_gas_price,
         }
     }
 }

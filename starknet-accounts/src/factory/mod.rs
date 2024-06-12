@@ -90,23 +90,23 @@ pub trait AccountFactory: Sized {
         query_only: bool,
     ) -> Result<Vec<Felt>, Self::SignError>;
 
-    fn deploy_v1(&self, salt: Felt) -> AccountDeploymentV1<Self> {
+    fn deploy_v1(&self, salt: Felt) -> AccountDeploymentV1<'_, Self> {
         AccountDeploymentV1::new(salt, self)
     }
 
-    fn deploy_v3(&self, salt: Felt) -> AccountDeploymentV3<Self> {
+    fn deploy_v3(&self, salt: Felt) -> AccountDeploymentV3<'_, Self> {
         AccountDeploymentV3::new(salt, self)
     }
 
     #[deprecated = "use version specific variants (`deploy_v1` & `deploy_v3`) instead"]
-    fn deploy(&self, salt: Felt) -> AccountDeploymentV1<Self> {
+    fn deploy(&self, salt: Felt) -> AccountDeploymentV1<'_, Self> {
         self.deploy_v1(salt)
     }
 }
 
 /// Abstraction over `DEPLOY_ACCOUNT` transactions for account contract deployment. This struct uses
 /// v1 `DEPLOY_ACCOUNT` transactions under the hood, and hence pays transaction fees in ETH. To use
-/// v3 transactions for STRK fee payment, use [AccountDeploymentV3] instead.
+/// v3 transactions for STRK fee payment, use [`AccountDeploymentV3`] instead.
 ///
 /// An intermediate type allowing users to optionally specify `nonce` and/or `max_fee`.
 #[must_use]
@@ -123,7 +123,7 @@ pub struct AccountDeploymentV1<'f, F> {
 
 /// Abstraction over `DEPLOY_ACCOUNT` transactions for account contract deployment. This struct uses
 /// v3 `DEPLOY_ACCOUNT` transactions under the hood, and hence pays transaction fees in STRK. To use
-/// v1 transactions for ETH fee payment, use [AccountDeploymentV1] instead.
+/// v1 transactions for ETH fee payment, use [`AccountDeploymentV1`] instead.
 ///
 /// This is an intermediate type allowing users to optionally specify `nonce`, `gas`, and/or
 /// `gas_price`.
@@ -141,7 +141,7 @@ pub struct AccountDeploymentV3<'f, F> {
     gas_price_estimate_multiplier: f64,
 }
 
-/// [AccountDeploymentV1] but with `nonce` and `max_fee` already determined.
+/// [`AccountDeploymentV1`] but with `nonce` and `max_fee` already determined.
 #[derive(Debug, Clone)]
 pub struct RawAccountDeploymentV1 {
     salt: Felt,
@@ -149,7 +149,7 @@ pub struct RawAccountDeploymentV1 {
     max_fee: Felt,
 }
 
-/// [AccountDeploymentV3] but with `nonce`, `gas` and `gas_price` already determined.
+/// [`AccountDeploymentV3`] but with `nonce`, `gas` and `gas_price` already determined.
 #[derive(Debug, Clone)]
 pub struct RawAccountDeploymentV3 {
     salt: Felt,
@@ -158,14 +158,14 @@ pub struct RawAccountDeploymentV3 {
     gas_price: u128,
 }
 
-/// [RawAccountDeploymentV1] but with a factory associated.
+/// [`RawAccountDeploymentV1`] but with a factory associated.
 #[derive(Debug)]
 pub struct PreparedAccountDeploymentV1<'f, F> {
     factory: &'f F,
     inner: RawAccountDeploymentV1,
 }
 
-/// [RawAccountDeploymentV3] but with a factory associated.
+/// [`RawAccountDeploymentV3`] but with a factory associated.
 #[derive(Debug)]
 pub struct PreparedAccountDeploymentV3<'f, F> {
     factory: &'f F,
@@ -183,7 +183,7 @@ pub enum AccountFactoryError<S> {
 }
 
 impl<'f, F> AccountDeploymentV1<'f, F> {
-    pub fn new(salt: Felt, factory: &'f F) -> Self {
+    pub const fn new(salt: Felt, factory: &'f F) -> Self {
         Self {
             factory,
             salt,
@@ -215,7 +215,7 @@ impl<'f, F> AccountDeploymentV1<'f, F> {
     }
 
     /// Calling this function after manually specifying `nonce` and `max_fee` turns
-    /// [AccountDeploymentV1] into [PreparedAccountDeploymentV1]. Returns `Err` if either field is
+    /// [`AccountDeploymentV1`] into [`PreparedAccountDeploymentV1`]. Returns `Err` if either field is
     /// `None`.
     pub fn prepared(self) -> Result<PreparedAccountDeploymentV1<'f, F>, NotPreparedError> {
         let nonce = self.nonce.ok_or(NotPreparedError)?;
@@ -233,7 +233,7 @@ impl<'f, F> AccountDeploymentV1<'f, F> {
 }
 
 impl<'f, F> AccountDeploymentV3<'f, F> {
-    pub fn new(salt: Felt, factory: &'f F) -> Self {
+    pub const fn new(salt: Felt, factory: &'f F) -> Self {
         Self {
             factory,
             salt,
@@ -245,35 +245,35 @@ impl<'f, F> AccountDeploymentV3<'f, F> {
         }
     }
 
-    pub fn nonce(self, nonce: Felt) -> Self {
+    pub const fn nonce(self, nonce: Felt) -> Self {
         Self {
             nonce: Some(nonce),
             ..self
         }
     }
 
-    pub fn gas(self, gas: u64) -> Self {
+    pub const fn gas(self, gas: u64) -> Self {
         Self {
             gas: Some(gas),
             ..self
         }
     }
 
-    pub fn gas_price(self, gas_price: u128) -> Self {
+    pub const fn gas_price(self, gas_price: u128) -> Self {
         Self {
             gas_price: Some(gas_price),
             ..self
         }
     }
 
-    pub fn gas_estimate_multiplier(self, gas_estimate_multiplier: f64) -> Self {
+    pub const fn gas_estimate_multiplier(self, gas_estimate_multiplier: f64) -> Self {
         Self {
             gas_estimate_multiplier,
             ..self
         }
     }
 
-    pub fn gas_price_estimate_multiplier(self, gas_price_estimate_multiplier: f64) -> Self {
+    pub const fn gas_price_estimate_multiplier(self, gas_price_estimate_multiplier: f64) -> Self {
         Self {
             gas_price_estimate_multiplier,
             ..self
@@ -281,7 +281,7 @@ impl<'f, F> AccountDeploymentV3<'f, F> {
     }
 
     /// Calling this function after manually specifying `nonce` and `max_fee` turns
-    /// [AccountDeploymentV3] into [PreparedAccountDeploymentV3]. Returns `Err` if either field is
+    /// [`AccountDeploymentV3`] into [`PreparedAccountDeploymentV3`]. Returns `Err` if either field is
     /// `None`.
     pub fn prepared(self) -> Result<PreparedAccountDeploymentV3<'f, F>, NotPreparedError> {
         let nonce = self.nonce.ok_or(NotPreparedError)?;
@@ -716,7 +716,7 @@ where
 }
 
 impl RawAccountDeploymentV1 {
-    pub fn salt(&self) -> Felt {
+    pub const fn salt(&self) -> Felt {
         self.salt
     }
 
@@ -730,25 +730,25 @@ impl RawAccountDeploymentV1 {
 }
 
 impl RawAccountDeploymentV3 {
-    pub fn salt(&self) -> Felt {
+    pub const fn salt(&self) -> Felt {
         self.salt
     }
 
-    pub fn nonce(&self) -> Felt {
+    pub const fn nonce(&self) -> Felt {
         self.nonce
     }
 
-    pub fn gas(&self) -> u64 {
+    pub const fn gas(&self) -> u64 {
         self.gas
     }
 
-    pub fn gas_price(&self) -> u128 {
+    pub const fn gas_price(&self) -> u128 {
         self.gas_price
     }
 }
 
 impl<'f, F> PreparedAccountDeploymentV1<'f, F> {
-    pub fn from_raw(raw_deployment: RawAccountDeploymentV1, factory: &'f F) -> Self {
+    pub const fn from_raw(raw_deployment: RawAccountDeploymentV1, factory: &'f F) -> Self {
         Self {
             factory,
             inner: raw_deployment,
@@ -757,7 +757,7 @@ impl<'f, F> PreparedAccountDeploymentV1<'f, F> {
 }
 
 impl<'f, F> PreparedAccountDeploymentV3<'f, F> {
-    pub fn from_raw(raw_deployment: RawAccountDeploymentV3, factory: &'f F) -> Self {
+    pub const fn from_raw(raw_deployment: RawAccountDeploymentV3, factory: &'f F) -> Self {
         Self {
             factory,
             inner: raw_deployment,

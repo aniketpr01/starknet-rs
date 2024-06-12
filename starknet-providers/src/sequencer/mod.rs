@@ -465,16 +465,14 @@ impl From<SequencerError> for ProviderError {
             ErrorCode::DeprecatedEndpoint |
             ErrorCode::MalformedRequest |
             ErrorCode::InvalidProgram => None,
-            ErrorCode::TransactionFailed => {
+            ErrorCode::TransactionFailed |
+            ErrorCode::ValidateFailure => {
                 Some(StarknetError::ValidationFailure(value.message.clone()))
             }
             ErrorCode::TransactionNotFound |
             ErrorCode::UninitializedContract => Some(StarknetError::ContractNotFound),
             ErrorCode::UndeclaredClass => Some(StarknetError::ClassHashNotFound),
             ErrorCode::InvalidTransactionNonce => Some(StarknetError::InvalidTransactionNonce),
-            ErrorCode::ValidateFailure => {
-                Some(StarknetError::ValidationFailure(value.message.clone()))
-            }
             ErrorCode::ClassAlreadyDeclared => Some(StarknetError::ClassAlreadyDeclared),
             ErrorCode::CompilationFailed => Some(StarknetError::CompilationFailed),
             ErrorCode::InvalidCompiledClassHash => Some(StarknetError::CompiledClassHashMismatch),

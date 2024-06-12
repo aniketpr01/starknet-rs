@@ -57,6 +57,8 @@ no_unknown_fields = [
 
 [workspace.lints]
 rust.missing_debug_implementations = "warn"
+rust.missing_docs = "allow"
+rust.unreachable_pub = "allow"
 rust.unused_must_use = "deny"
 rust.rust_2018_idioms = { level = "deny", priority = -1 }
 rustdoc.all = "warn"
@@ -105,7 +107,7 @@ unnecessary_struct_initialization = "warn"
 string_lit_as_bytes = "warn"
 explicit_into_iter_loop = "warn"
 explicit_iter_loop = "warn"
-type_repetition_in_bounds = "warn"
+type_repetition_in_bounds = "allow"
 manual_string_new = "warn"
 naive_bytecount = "warn"
 needless_bitwise_bool = "warn"

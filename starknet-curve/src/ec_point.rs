@@ -1,4 +1,3 @@
-#![allow(clippy::missing_const_for_fn)]
 use starknet_ff::FieldElement;
 
 use crate::curve_params::{ALPHA, BETA};
@@ -31,7 +30,7 @@ impl AffinePoint {
         })
     }
 
-    fn identity() -> Self {
+    const fn identity() -> Self {
         Self {
             x: FieldElement::ZERO,
             y: FieldElement::ZERO,
@@ -160,7 +159,7 @@ impl ProjectivePoint {
         }
     }
 
-    fn identity() -> Self {
+    const fn identity() -> Self {
         Self {
             x: FieldElement::ZERO,
             y: FieldElement::ZERO,

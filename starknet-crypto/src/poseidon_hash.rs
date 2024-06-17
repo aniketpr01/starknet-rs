@@ -71,7 +71,7 @@ pub fn poseidon_hash_single(x: Felt) -> Felt {
 
 /// Computes the Starknet Poseidon hash of an arbitrary number of [`Felt`]s.
 ///
-/// Using this function is the same as using [PoseidonHasher].
+/// Using this function is the same as using [`PoseidonHasher`].
 pub fn poseidon_hash_many<'a, I: IntoIterator<Item = &'a Felt>>(msgs: I) -> Felt {
     let mut state = [Felt::ZERO, Felt::ZERO, Felt::ZERO];
     let mut iter = msgs.into_iter();

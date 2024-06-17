@@ -419,8 +419,7 @@ mod tests {
             (BlockId::Number(1234), "{\"block_number\":1234}"),
             (BlockId::Tag(BlockTag::Latest), "\"latest\""),
             (BlockId::Tag(BlockTag::Pending), "\"pending\""),
-        ]
-        {
+        ] {
             assert_eq!(serde_json::to_string(&block_id).unwrap(), json);
             assert_eq!(serde_json::from_str::<BlockId>(json).unwrap(), block_id);
         }

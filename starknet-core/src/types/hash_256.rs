@@ -172,7 +172,7 @@ impl TryFrom<&Hash256> for Felt {
     type Error = ToFieldElementError;
 
     fn try_from(value: &Hash256) -> Result<Self, Self::Error> {
-        Ok(Felt::from_bytes_be(&value.inner))
+        Ok(Self::from_bytes_be(&value.inner))
     }
 }
 

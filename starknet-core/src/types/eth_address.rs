@@ -169,7 +169,7 @@ impl TryFrom<&Felt> for EthAddress {
 impl From<EthAddress> for Felt {
     fn from(value: EthAddress) -> Self {
         // Safe to unwrap here as the value is never out of range
-        Felt::from_bytes_be_slice(&value.inner)
+        Self::from_bytes_be_slice(&value.inner)
     }
 }
 

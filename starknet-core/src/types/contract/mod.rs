@@ -864,8 +864,7 @@ mod tests {
             include_str!("../../../test-data/contracts/cairo2/artifacts/abi_types_sierra.txt"),
             include_str!("../../../test-data/contracts/cairo2/artifacts/erc20_sierra.txt"),
             include_str!("../../../test-data/contracts/cairo2.6/artifacts/erc20_sierra.txt"),
-        ]
-        {
+        ] {
             match serde_json::from_str::<ContractArtifact>(raw_artifact) {
                 Ok(ContractArtifact::SierraClass(_)) => {}
                 _ => panic!("Unexpected result"),
@@ -882,8 +881,7 @@ mod tests {
             include_str!("../../../test-data/contracts/cairo2/artifacts/abi_types_compiled.txt"),
             include_str!("../../../test-data/contracts/cairo2/artifacts/erc20_compiled.txt"),
             include_str!("../../../test-data/contracts/cairo2.6/artifacts/erc20_compiled.txt"),
-        ]
-        {
+        ] {
             match serde_json::from_str::<ContractArtifact>(raw_artifact) {
                 Ok(ContractArtifact::CompiledClass(_)) => {}
                 _ => panic!("Unexpected result"),
@@ -922,8 +920,7 @@ mod tests {
                 include_str!("../../../test-data/contracts/cairo2/artifacts/abi_types_sierra.txt"),
                 include_str!("../../../test-data/contracts/cairo2/artifacts/abi_types.hashes.json"),
             ),
-        ]
-        {
+        ] {
             let sierra_class = serde_json::from_str::<SierraClass>(raw_artifact).unwrap();
             let computed_hash = sierra_class.class_hash().unwrap();
 
@@ -962,8 +959,7 @@ mod tests {
                 include_str!("../../../test-data/contracts/cairo2.6/artifacts/erc20_compiled.txt"),
                 include_str!("../../../test-data/contracts/cairo2.6/artifacts/erc20.hashes.json"),
             ),
-        ]
-        {
+        ] {
             let compiled_class = serde_json::from_str::<CompiledClass>(raw_artifact).unwrap();
             let computed_hash = compiled_class.class_hash().unwrap();
 

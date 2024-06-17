@@ -16,20 +16,16 @@ impl From<LegacyContractAbiEntry> for RawLegacyAbiEntry {
                     outputs: inner.outputs,
                     state_mutability: inner.state_mutability,
                 }),
-                LegacyFunctionAbiType::L1Handler => {
-                    Self::L1Handler(RawLegacyL1Handler {
-                        inputs: inner.inputs,
-                        name: inner.name,
-                        outputs: inner.outputs,
-                    })
-                }
-                LegacyFunctionAbiType::Constructor => {
-                    Self::Constructor(RawLegacyConstructor {
-                        inputs: inner.inputs,
-                        name: inner.name,
-                        outputs: inner.outputs,
-                    })
-                }
+                LegacyFunctionAbiType::L1Handler => Self::L1Handler(RawLegacyL1Handler {
+                    inputs: inner.inputs,
+                    name: inner.name,
+                    outputs: inner.outputs,
+                }),
+                LegacyFunctionAbiType::Constructor => Self::Constructor(RawLegacyConstructor {
+                    inputs: inner.inputs,
+                    name: inner.name,
+                    outputs: inner.outputs,
+                }),
             },
             LegacyContractAbiEntry::Event(inner) => Self::Event(RawLegacyEvent {
                 data: inner.data,

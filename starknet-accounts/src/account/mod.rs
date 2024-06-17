@@ -93,7 +93,10 @@ pub trait Account: ExecutionEncoder + Sized {
         self.declare_v2(contract_class, compiled_class_hash)
     }
 
-    fn declare_legacy(&self, contract_class: Arc<LegacyContractClass>) -> LegacyDeclaration<'_, Self> {
+    fn declare_legacy(
+        &self,
+        contract_class: Arc<LegacyContractClass>,
+    ) -> LegacyDeclaration<'_, Self> {
         LegacyDeclaration::new(contract_class, self)
     }
 }

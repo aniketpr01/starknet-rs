@@ -604,8 +604,9 @@ impl TryFrom<TransactionFinalityStatus> for core::TransactionFinalityStatus {
 
     fn try_from(value: TransactionFinalityStatus) -> Result<Self, Self::Error> {
         match value {
-            TransactionFinalityStatus::NotReceived |
-            TransactionFinalityStatus::Received => Err(ConversionError),
+            TransactionFinalityStatus::NotReceived | TransactionFinalityStatus::Received => {
+                Err(ConversionError)
+            }
             TransactionFinalityStatus::AcceptedOnL2 => Ok(Self::AcceptedOnL2),
             TransactionFinalityStatus::AcceptedOnL1 => Ok(Self::AcceptedOnL1),
         }

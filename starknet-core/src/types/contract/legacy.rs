@@ -853,8 +853,7 @@ mod tests {
             include_str!(
                 "../../../test-data/contracts/cairo0/artifacts/pre-0.11.0/event_example.txt"
             ),
-        ]
-        {
+        ] {
             serde_json::from_str::<LegacyContractClass>(raw_artifact).unwrap();
         }
     }

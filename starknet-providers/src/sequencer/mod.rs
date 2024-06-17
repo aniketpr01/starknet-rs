@@ -460,17 +460,17 @@ impl From<SequencerError> for ProviderError {
     fn from(value: SequencerError) -> Self {
         let matching_code = match value.code {
             ErrorCode::BlockNotFound => Some(StarknetError::BlockNotFound),
-            ErrorCode::EntryPointNotFoundInContract |
-            ErrorCode::InvalidContractClass |
-            ErrorCode::DeprecatedEndpoint |
-            ErrorCode::MalformedRequest |
-            ErrorCode::InvalidProgram => None,
-            ErrorCode::TransactionFailed |
-            ErrorCode::ValidateFailure => {
+            ErrorCode::EntryPointNotFoundInContract
+            | ErrorCode::InvalidContractClass
+            | ErrorCode::DeprecatedEndpoint
+            | ErrorCode::MalformedRequest
+            | ErrorCode::InvalidProgram => None,
+            ErrorCode::TransactionFailed | ErrorCode::ValidateFailure => {
                 Some(StarknetError::ValidationFailure(value.message.clone()))
             }
-            ErrorCode::TransactionNotFound |
-            ErrorCode::UninitializedContract => Some(StarknetError::ContractNotFound),
+            ErrorCode::TransactionNotFound | ErrorCode::UninitializedContract => {
+                Some(StarknetError::ContractNotFound)
+            }
             ErrorCode::UndeclaredClass => Some(StarknetError::ClassHashNotFound),
             ErrorCode::InvalidTransactionNonce => Some(StarknetError::InvalidTransactionNonce),
             ErrorCode::ClassAlreadyDeclared => Some(StarknetError::ClassAlreadyDeclared),
@@ -566,8 +566,7 @@ mod tests {
         for raw in [
             include_str!("../../test-data/raw_gateway_responses/get_class_by_hash/1_cairo_0.txt"),
             include_str!("../../test-data/raw_gateway_responses/get_class_by_hash/3_cairo_1.txt"),
-        ]
-        {
+        ] {
             serde_json::from_str::<GatewayResponse<DeployedClass>>(raw).unwrap();
         }
     }

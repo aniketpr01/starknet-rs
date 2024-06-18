@@ -41,7 +41,7 @@ const QUERY_VERSION_THREE: Felt = Felt::from_raw([
 ]);
 
 impl<'a, A> ExecutionV1<'a, A> {
-    pub fn new(calls: Vec<Call>, account: &'a A) -> Self {
+    pub const fn new(calls: Vec<Call>, account: &'a A) -> Self {
         Self {
             account,
             calls,
@@ -90,7 +90,7 @@ impl<'a, A> ExecutionV1<'a, A> {
 }
 
 impl<'a, A> ExecutionV3<'a, A> {
-    pub fn new(calls: Vec<Call>, account: &'a A) -> Self {
+    pub const fn new(calls: Vec<Call>, account: &'a A) -> Self {
         Self {
             account,
             calls,

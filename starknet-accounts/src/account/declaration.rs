@@ -51,7 +51,7 @@ const QUERY_VERSION_THREE: Felt = Felt::from_raw([
 ]);
 
 impl<'a, A> DeclarationV2<'a, A> {
-    pub fn new(
+    pub const fn new(
         contract_class: Arc<FlattenedSierraClass>,
         compiled_class_hash: Felt,
         account: &'a A,
@@ -256,7 +256,7 @@ where
 }
 
 impl<'a, A> DeclarationV3<'a, A> {
-    pub fn new(
+    pub const fn new(
         contract_class: Arc<FlattenedSierraClass>,
         compiled_class_hash: Felt,
         account: &'a A,
@@ -533,7 +533,7 @@ where
 }
 
 impl<'a, A> LegacyDeclaration<'a, A> {
-    pub fn new(contract_class: Arc<LegacyContractClass>, account: &'a A) -> Self {
+    pub const fn new(contract_class: Arc<LegacyContractClass>, account: &'a A) -> Self {
         Self {
             account,
             contract_class,

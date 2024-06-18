@@ -79,7 +79,7 @@ impl<A> ContractFactory<A>
 where
     A: Account,
 {
-    pub fn deploy_v1(
+    pub const fn deploy_v1(
         &self,
         constructor_calldata: Vec<Felt>,
         salt: Felt,
@@ -96,7 +96,7 @@ where
         }
     }
 
-    pub fn deploy_v3(
+    pub const fn deploy_v3(
         &self,
         constructor_calldata: Vec<Felt>,
         salt: Felt,
@@ -116,7 +116,7 @@ where
     }
 
     #[deprecated = "use version specific variants (`deploy_v1` & `deploy_v3`) instead"]
-    pub fn deploy(
+    pub const fn deploy(
         &self,
         constructor_calldata: Vec<Felt>,
         salt: Felt,

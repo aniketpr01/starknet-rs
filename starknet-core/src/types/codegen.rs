@@ -389,7 +389,7 @@ pub struct ComputationResources {
     /// The number of unused memory cells (each cell is roughly equivalent to a step)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub memory_holes: Option<u64>,
-    /// The number of `range_check` builtin instances
+    /// The number of range_check builtin instances
     #[serde(skip_serializing_if = "Option::is_none")]
     pub range_check_builtin_applications: Option<u64>,
     /// The number of pedersen builtin instances
@@ -398,7 +398,7 @@ pub struct ComputationResources {
     /// The number of poseidon builtin instances
     #[serde(skip_serializing_if = "Option::is_none")]
     pub poseidon_builtin_applications: Option<u64>,
-    /// The number of `ec_op` builtin instances
+    /// The number of ec_op builtin instances
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ec_op_builtin_applications: Option<u64>,
     /// The number of ecdsa builtin instances
@@ -1568,7 +1568,7 @@ pub struct SimulatedTransaction {
 /// Flags that indicate how to simulate a given transaction. By default, the sequencer behavior is
 /// replicated locally (enough funds are expected to be in the account, and fee will be deducted
 /// from the balance before the simulation of the next transaction). To skip the fee charge, use the
-/// `skip_fee_charge` flag.
+/// skip_fee_charge flag.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum SimulationFlag {
     #[serde(rename = "SKIP_VALIDATE")]
@@ -1618,7 +1618,7 @@ pub enum StarknetError {
     InvalidTransactionNonce,
     /// Max fee is smaller than the minimal transaction cost (validation plus fee transfer)
     InsufficientMaxFee,
-    /// Account balance is smaller than the transaction's `max_fee`
+    /// Account balance is smaller than the transaction's max_fee
     InsufficientAccountBalance,
     /// Account validation failed
     ValidationFailure(String),
@@ -1679,7 +1679,7 @@ impl core::fmt::Display for StarknetError {
 }
 
 impl StarknetError {
-    pub const fn message(&self) -> &'static str {
+    pub fn message(&self) -> &'static str {
         match self {
             Self::FailedToReceiveTransaction => "Failed to write transaction",
             Self::ContractNotFound => "Contract not found",
@@ -1848,54 +1848,54 @@ pub struct TransactionWithReceipt {
     pub receipt: TransactionReceipt,
 }
 
-/// Request for method `starknet_addDeclareTransaction`
+/// Request for method starknet_addDeclareTransaction
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AddDeclareTransactionRequest {
     /// Declare transaction required to declare a new class on Starknet
     pub declare_transaction: BroadcastedDeclareTransaction,
 }
 
-/// Reference version of [`AddDeclareTransactionRequest`].
+/// Reference version of [AddDeclareTransactionRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AddDeclareTransactionRequestRef<'a> {
     pub declare_transaction: &'a BroadcastedDeclareTransaction,
 }
 
-/// Request for method `starknet_addDeployAccountTransaction`
+/// Request for method starknet_addDeployAccountTransaction
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AddDeployAccountTransactionRequest {
     /// The deploy account transaction
     pub deploy_account_transaction: BroadcastedDeployAccountTransaction,
 }
 
-/// Reference version of [`AddDeployAccountTransactionRequest`].
+/// Reference version of [AddDeployAccountTransactionRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AddDeployAccountTransactionRequestRef<'a> {
     pub deploy_account_transaction: &'a BroadcastedDeployAccountTransaction,
 }
 
-/// Request for method `starknet_addInvokeTransaction`
+/// Request for method starknet_addInvokeTransaction
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AddInvokeTransactionRequest {
     /// The information needed to invoke the function (or account, for version 1 transactions)
     pub invoke_transaction: BroadcastedInvokeTransaction,
 }
 
-/// Reference version of [`AddInvokeTransactionRequest`].
+/// Reference version of [AddInvokeTransactionRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AddInvokeTransactionRequestRef<'a> {
     pub invoke_transaction: &'a BroadcastedInvokeTransaction,
 }
 
-/// Request for method `starknet_blockHashAndNumber`
+/// Request for method starknet_blockHashAndNumber
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct BlockHashAndNumberRequest;
 
-/// Request for method `starknet_blockNumber`
+/// Request for method starknet_blockNumber
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct BlockNumberRequest;
 
-/// Request for method `starknet_call`
+/// Request for method starknet_call
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CallRequest {
     pub request: FunctionCall,
@@ -1904,18 +1904,18 @@ pub struct CallRequest {
     pub block_id: BlockId,
 }
 
-/// Reference version of [`CallRequest`].
+/// Reference version of [CallRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CallRequestRef<'a> {
     pub request: &'a FunctionCall,
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_chainId`
+/// Request for method starknet_chainId
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ChainIdRequest;
 
-/// Request for method `starknet_estimateFee`
+/// Request for method starknet_estimateFee
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct EstimateFeeRequest {
     pub request: Vec<BroadcastedTransaction>,
@@ -1926,7 +1926,7 @@ pub struct EstimateFeeRequest {
     pub block_id: BlockId,
 }
 
-/// Reference version of [`EstimateFeeRequest`].
+/// Reference version of [EstimateFeeRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct EstimateFeeRequestRef<'a> {
     pub request: &'a [BroadcastedTransaction],
@@ -1934,7 +1934,7 @@ pub struct EstimateFeeRequestRef<'a> {
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_estimateMessageFee`
+/// Request for method starknet_estimateMessageFee
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct EstimateMessageFeeRequest {
     /// the message's parameters
@@ -1944,66 +1944,66 @@ pub struct EstimateMessageFeeRequest {
     pub block_id: BlockId,
 }
 
-/// Reference version of [`EstimateMessageFeeRequest`].
+/// Reference version of [EstimateMessageFeeRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct EstimateMessageFeeRequestRef<'a> {
     pub message: &'a MsgFromL1,
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_getBlockTransactionCount`
+/// Request for method starknet_getBlockTransactionCount
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetBlockTransactionCountRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
     pub block_id: BlockId,
 }
 
-/// Reference version of [`GetBlockTransactionCountRequest`].
+/// Reference version of [GetBlockTransactionCountRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetBlockTransactionCountRequestRef<'a> {
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_getBlockWithReceipts`
+/// Request for method starknet_getBlockWithReceipts
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetBlockWithReceiptsRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
     pub block_id: BlockId,
 }
 
-/// Reference version of [`GetBlockWithReceiptsRequest`].
+/// Reference version of [GetBlockWithReceiptsRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetBlockWithReceiptsRequestRef<'a> {
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_getBlockWithTxHashes`
+/// Request for method starknet_getBlockWithTxHashes
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetBlockWithTxHashesRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
     pub block_id: BlockId,
 }
 
-/// Reference version of [`GetBlockWithTxHashesRequest`].
+/// Reference version of [GetBlockWithTxHashesRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetBlockWithTxHashesRequestRef<'a> {
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_getBlockWithTxs`
+/// Request for method starknet_getBlockWithTxs
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetBlockWithTxsRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
     pub block_id: BlockId,
 }
 
-/// Reference version of [`GetBlockWithTxsRequest`].
+/// Reference version of [GetBlockWithTxsRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetBlockWithTxsRequestRef<'a> {
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_getClassAt`
+/// Request for method starknet_getClassAt
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetClassAtRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
@@ -2012,14 +2012,14 @@ pub struct GetClassAtRequest {
     pub contract_address: Felt,
 }
 
-/// Reference version of [`GetClassAtRequest`].
+/// Reference version of [GetClassAtRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetClassAtRequestRef<'a> {
     pub block_id: &'a BlockId,
     pub contract_address: &'a Felt,
 }
 
-/// Request for method `starknet_getClassHashAt`
+/// Request for method starknet_getClassHashAt
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetClassHashAtRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
@@ -2028,14 +2028,14 @@ pub struct GetClassHashAtRequest {
     pub contract_address: Felt,
 }
 
-/// Reference version of [`GetClassHashAtRequest`].
+/// Reference version of [GetClassHashAtRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetClassHashAtRequestRef<'a> {
     pub block_id: &'a BlockId,
     pub contract_address: &'a Felt,
 }
 
-/// Request for method `starknet_getClass`
+/// Request for method starknet_getClass
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetClassRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
@@ -2044,26 +2044,26 @@ pub struct GetClassRequest {
     pub class_hash: Felt,
 }
 
-/// Reference version of [`GetClassRequest`].
+/// Reference version of [GetClassRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetClassRequestRef<'a> {
     pub block_id: &'a BlockId,
     pub class_hash: &'a Felt,
 }
 
-/// Request for method `starknet_getEvents`
+/// Request for method starknet_getEvents
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetEventsRequest {
     pub filter: EventFilterWithPage,
 }
 
-/// Reference version of [`GetEventsRequest`].
+/// Reference version of [GetEventsRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetEventsRequestRef<'a> {
     pub filter: &'a EventFilterWithPage,
 }
 
-/// Request for method `starknet_getNonce`
+/// Request for method starknet_getNonce
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetNonceRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
@@ -2072,27 +2072,27 @@ pub struct GetNonceRequest {
     pub contract_address: Felt,
 }
 
-/// Reference version of [`GetNonceRequest`].
+/// Reference version of [GetNonceRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetNonceRequestRef<'a> {
     pub block_id: &'a BlockId,
     pub contract_address: &'a Felt,
 }
 
-/// Request for method `starknet_getStateUpdate`
+/// Request for method starknet_getStateUpdate
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetStateUpdateRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
     pub block_id: BlockId,
 }
 
-/// Reference version of [`GetStateUpdateRequest`].
+/// Reference version of [GetStateUpdateRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetStateUpdateRequestRef<'a> {
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_getStorageAt`
+/// Request for method starknet_getStorageAt
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetStorageAtRequest {
     /// The address of the contract to read from
@@ -2103,7 +2103,7 @@ pub struct GetStorageAtRequest {
     pub block_id: BlockId,
 }
 
-/// Reference version of [`GetStorageAtRequest`].
+/// Reference version of [GetStorageAtRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetStorageAtRequestRef<'a> {
     pub contract_address: &'a Felt,
@@ -2111,7 +2111,7 @@ pub struct GetStorageAtRequestRef<'a> {
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_getTransactionByBlockIdAndIndex`
+/// Request for method starknet_getTransactionByBlockIdAndIndex
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetTransactionByBlockIdAndIndexRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
@@ -2119,50 +2119,50 @@ pub struct GetTransactionByBlockIdAndIndexRequest {
     pub index: u64,
 }
 
-/// Reference version of [`GetTransactionByBlockIdAndIndexRequest`].
+/// Reference version of [GetTransactionByBlockIdAndIndexRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetTransactionByBlockIdAndIndexRequestRef<'a> {
     pub block_id: &'a BlockId,
     pub index: &'a u64,
 }
 
-/// Request for method `starknet_getTransactionByHash`
+/// Request for method starknet_getTransactionByHash
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetTransactionByHashRequest {
     pub transaction_hash: Felt,
 }
 
-/// Reference version of [`GetTransactionByHashRequest`].
+/// Reference version of [GetTransactionByHashRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetTransactionByHashRequestRef<'a> {
     pub transaction_hash: &'a Felt,
 }
 
-/// Request for method `starknet_getTransactionReceipt`
+/// Request for method starknet_getTransactionReceipt
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetTransactionReceiptRequest {
     pub transaction_hash: Felt,
 }
 
-/// Reference version of [`GetTransactionReceiptRequest`].
+/// Reference version of [GetTransactionReceiptRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetTransactionReceiptRequestRef<'a> {
     pub transaction_hash: &'a Felt,
 }
 
-/// Request for method `starknet_getTransactionStatus`
+/// Request for method starknet_getTransactionStatus
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetTransactionStatusRequest {
     pub transaction_hash: Felt,
 }
 
-/// Reference version of [`GetTransactionStatusRequest`].
+/// Reference version of [GetTransactionStatusRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GetTransactionStatusRequestRef<'a> {
     pub transaction_hash: &'a Felt,
 }
 
-/// Request for method `starknet_simulateTransactions`
+/// Request for method starknet_simulateTransactions
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SimulateTransactionsRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag,
@@ -2174,7 +2174,7 @@ pub struct SimulateTransactionsRequest {
     pub simulation_flags: Vec<SimulationFlag>,
 }
 
-/// Reference version of [`SimulateTransactionsRequest`].
+/// Reference version of [SimulateTransactionsRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SimulateTransactionsRequestRef<'a> {
     pub block_id: &'a BlockId,
@@ -2182,34 +2182,34 @@ pub struct SimulateTransactionsRequestRef<'a> {
     pub simulation_flags: &'a [SimulationFlag],
 }
 
-/// Request for method `starknet_specVersion`
+/// Request for method starknet_specVersion
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SpecVersionRequest;
 
-/// Request for method `starknet_syncing`
+/// Request for method starknet_syncing
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SyncingRequest;
 
-/// Request for method `starknet_traceBlockTransactions`
+/// Request for method starknet_traceBlockTransactions
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TraceBlockTransactionsRequest {
     /// The hash of the requested block, or number (height) of the requested block, or a block tag
     pub block_id: BlockId,
 }
 
-/// Reference version of [`TraceBlockTransactionsRequest`].
+/// Reference version of [TraceBlockTransactionsRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TraceBlockTransactionsRequestRef<'a> {
     pub block_id: &'a BlockId,
 }
 
-/// Request for method `starknet_traceTransaction`
+/// Request for method starknet_traceTransaction
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TraceTransactionRequest {
     pub transaction_hash: Felt,
 }
 
-/// Reference version of [`TraceTransactionRequest`].
+/// Reference version of [TraceTransactionRequest].
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TraceTransactionRequestRef<'a> {
     pub transaction_hash: &'a Felt,
@@ -4633,7 +4633,7 @@ impl<'de> Deserialize<'de> for AddDeclareTransactionRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 declare_transaction: field0.declare_transaction,
@@ -4710,7 +4710,7 @@ impl<'de> Deserialize<'de> for AddDeployAccountTransactionRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 deploy_account_transaction: field0.deploy_account_transaction,
@@ -4787,7 +4787,7 @@ impl<'de> Deserialize<'de> for AddInvokeTransactionRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 invoke_transaction: field0.invoke_transaction,
@@ -4927,13 +4927,13 @@ impl<'de> Deserialize<'de> for CallRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 request: field0.request,
@@ -5081,19 +5081,19 @@ impl<'de> Deserialize<'de> for EstimateFeeRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field1 = serde_json::from_value::<Field1>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 request: field0.request,
@@ -5199,13 +5199,13 @@ impl<'de> Deserialize<'de> for EstimateMessageFeeRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 message: field0.message,
@@ -5284,7 +5284,7 @@ impl<'de> Deserialize<'de> for GetBlockTransactionCountRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -5361,7 +5361,7 @@ impl<'de> Deserialize<'de> for GetBlockWithReceiptsRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -5438,7 +5438,7 @@ impl<'de> Deserialize<'de> for GetBlockWithTxHashesRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -5515,7 +5515,7 @@ impl<'de> Deserialize<'de> for GetBlockWithTxsRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -5624,13 +5624,13 @@ impl<'de> Deserialize<'de> for GetClassAtRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -5741,13 +5741,13 @@ impl<'de> Deserialize<'de> for GetClassHashAtRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -5858,13 +5858,13 @@ impl<'de> Deserialize<'de> for GetClassRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -5943,7 +5943,7 @@ impl<'de> Deserialize<'de> for GetEventsRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 filter: field0.filter,
@@ -6052,13 +6052,13 @@ impl<'de> Deserialize<'de> for GetNonceRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -6137,7 +6137,7 @@ impl<'de> Deserialize<'de> for GetStateUpdateRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -6274,19 +6274,19 @@ impl<'de> Deserialize<'de> for GetStorageAtRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field1 = serde_json::from_value::<Field1>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 contract_address: field0.contract_address,
@@ -6388,13 +6388,13 @@ impl<'de> Deserialize<'de> for GetTransactionByBlockIdAndIndexRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -6480,7 +6480,7 @@ impl<'de> Deserialize<'de> for GetTransactionByHashRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 transaction_hash: field0.transaction_hash,
@@ -6564,7 +6564,7 @@ impl<'de> Deserialize<'de> for GetTransactionReceiptRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 transaction_hash: field0.transaction_hash,
@@ -6648,7 +6648,7 @@ impl<'de> Deserialize<'de> for GetTransactionStatusRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 transaction_hash: field0.transaction_hash,
@@ -6775,19 +6775,19 @@ impl<'de> Deserialize<'de> for SimulateTransactionsRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field1 = serde_json::from_value::<Field1>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
             let field0 = serde_json::from_value::<Field0>(
                 elements
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -6906,7 +6906,7 @@ impl<'de> Deserialize<'de> for TraceBlockTransactionsRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 block_id: field0.block_id,
@@ -6990,7 +6990,7 @@ impl<'de> Deserialize<'de> for TraceTransactionRequest {
                     .pop()
                     .ok_or_else(|| serde::de::Error::custom("invalid sequence length"))?,
             )
-            .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
+                .map_err(|err| serde::de::Error::custom(format!("failed to parse element: {}", err)))?;
 
             Ok(Self {
                 transaction_hash: field0.transaction_hash,
